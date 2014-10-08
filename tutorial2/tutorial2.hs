@@ -31,10 +31,13 @@ lookUp char xs
       charList = [ b | (a,b) <- xs, a == char ]
 
 lookUpRec :: Char -> [(Char, Char)] -> Char
-lookUpRec = undefined
+lookUpRec char [] = char
+lookUpRec char (x:xs)
+  | (fst x) == char = (snd x)
+  | otherwise = lookUpRec char xs
 
-prop_lookUp :: Char -> [(Char, Char)] -> Char
-prop_lookUp = undefined
+prop_lookUp :: Char -> [(Char, Char)] -> Bool
+prop_lookUp char xs = (lookUp char xs) == (lookUpRec char xs)
 
 -- 5.
 encipher :: Int -> Char -> Char
