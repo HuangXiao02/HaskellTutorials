@@ -1,4 +1,4 @@
--- Informatics 1 - Functional Programming 
+-- Informatics 1 - Functional Programming
 -- Tutorial 2
 --
 -- Week 4 - due: 9/10 Oct.
@@ -10,7 +10,7 @@ import Test.QuickCheck
 
 -- 1.
 rotate :: Int -> [Char] -> [Char]
-rotate = undefined
+rotate n xs = (drop n xs) ++ (take n xs)
 
 -- 2.
 prop_rotate :: Int -> String -> Bool
@@ -18,13 +18,14 @@ prop_rotate k str = rotate (l - m) (rotate m str) == str
                         where l = length str
                               m = if l == 0 then 0 else k `mod` l
 
--- 3. 
+-- 3.
 makeKey :: Int -> [(Char, Char)]
-makeKey = undefined
+makeKey n = zip ['A'..'Z'] (rotate n ['A'..'Z'])
 
 -- 4.
 lookUp :: Char -> [(Char, Char)] -> Char
-lookUp = undefined
+lookUp char [] = char
+lookUp char xs = head [ b | (a,b) <- xs, a == char ]
 
 lookUpRec :: Char -> [(Char, Char)] -> Char
 lookUpRec = undefined
