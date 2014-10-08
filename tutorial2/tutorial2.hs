@@ -41,7 +41,7 @@ prop_lookUp char xs = (lookUp char xs) == (lookUpRec char xs)
 
 -- 5.
 encipher :: Int -> Char -> Char
-encipher = undefined
+encipher n ch = lookUpRec ch (makeKey n)
 
 -- 6.
 normalize :: String -> String
