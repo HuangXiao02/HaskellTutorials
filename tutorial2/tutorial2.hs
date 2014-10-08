@@ -24,8 +24,11 @@ makeKey n = zip ['A'..'Z'] (rotate n ['A'..'Z'])
 
 -- 4.
 lookUp :: Char -> [(Char, Char)] -> Char
-lookUp char [] = char
-lookUp char xs = head [ b | (a,b) <- xs, a == char ]
+lookUp char xs
+  | null charList = char
+  | otherwise     = head charList
+    where
+      charList = [ b | (a,b) <- xs, a == char ]
 
 lookUpRec :: Char -> [(Char, Char)] -> Char
 lookUpRec = undefined
