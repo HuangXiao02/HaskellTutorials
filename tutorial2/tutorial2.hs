@@ -72,7 +72,8 @@ decipherStr n str = [ decipher n s | s <- str, isDigit s || isUpper s]
 
 -- 10.
 contains :: String -> String -> Bool
-contains = undefined
+contains [] sub        = False
+contains (s:str) sub = isPrefixOf sub str || contains str sub
 
 -- 11.
 candidates :: String -> [(Int, String)]
