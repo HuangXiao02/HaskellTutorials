@@ -77,7 +77,10 @@ contains (s:str) sub = isPrefixOf sub str || contains str sub
 
 -- 11.
 candidates :: String -> [(Int, String)]
-candidates = undefined
+candidates str = [ pair | pair <- pairs, contains (snd pair) "AND" || contains (snd pair) "THE" ]
+  where
+    options str = [ decipherStr n str | n <- [1..26] ]
+    pairs = [ pair | pair <- zip [1..26] (options str) ]
 
 
 
