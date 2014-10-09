@@ -45,7 +45,7 @@ encipher n ch = lookUpRec ch (makeKey n)
 
 -- 6.
 normalize :: String -> String
-normalize = undefined
+normalize str = [ toUpper s | s <- str, isAlphaNum s ]
 
 -- 7.
 encipherStr :: Int -> String -> String
