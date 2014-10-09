@@ -53,13 +53,16 @@ encipherStr n str = [ encipher n s | s <- (normalize str) ]
 
 -- 8.
 reverseKey :: [(Char, Char)] -> [(Char, Char)]
-reverseKey = undefined
+reverseKey xs = [ (y, x) | (x, y) <- xs ]
 
 reverseKeyRec :: [(Char, Char)] -> [(Char, Char)]
-reverseKeyRec = undefined
+reverseKeyRec [] = []
+reverseKeyRec (x:xs) = (b,a) : reverseKeyRec xs
+  where (a,b) = x
 
 prop_reverseKey :: [(Char, Char)] -> Bool
-prop_reverseKey = undefined
+prop_reverseKey xs = (reverseKey xs) == (reverseKeyRec xs)
+
 -- 9.
 decipher :: Int -> Char -> Char
 decipher = undefined
