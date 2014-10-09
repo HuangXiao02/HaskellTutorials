@@ -49,7 +49,7 @@ normalize str = [ toUpper s | s <- str, isAlphaNum s ]
 
 -- 7.
 encipherStr :: Int -> String -> String
-encipherStr = undefined
+encipherStr n str = [ encipher n s | s <- (normalize str) ]
 
 -- 8.
 reverseKey :: [(Char, Char)] -> [(Char, Char)]
