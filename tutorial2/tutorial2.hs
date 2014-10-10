@@ -20,7 +20,8 @@ prop_rotate k str = rotate (l - m) (rotate m str) == str
 
 -- 3.
 makeKey :: Int -> [(Char, Char)]
-makeKey n = zip ['A'..'Z'] (rotate n ['A'..'Z'])
+makeKey n = zip alpha (rotate n alpha)
+  where alpha = ['A'..'Z']
 
 -- 4.
 lookUp :: Char -> [(Char, Char)] -> Char
