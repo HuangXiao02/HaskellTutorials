@@ -58,8 +58,7 @@ reverseKey xs = [ (y, x) | (x, y) <- xs ]
 
 reverseKeyRec :: [(Char, Char)] -> [(Char, Char)]
 reverseKeyRec [] = []
-reverseKeyRec (x:xs) = (b,a) : reverseKeyRec xs
-  where (a,b) = x
+reverseKeyRec ((a,b):xs) = (b,a) : reverseKeyRec xs
 
 prop_reverseKey :: [(Char, Char)] -> Bool
 prop_reverseKey xs = (reverseKey xs) == (reverseKeyRec xs)
