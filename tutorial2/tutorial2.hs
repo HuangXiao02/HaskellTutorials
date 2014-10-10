@@ -33,8 +33,8 @@ lookUp char xs
 
 lookUpRec :: Char -> [(Char, Char)] -> Char
 lookUpRec char [] = char
-lookUpRec char (x:xs)
-  | (fst x) == char = (snd x)
+lookUpRec char ((a,b):xs)
+  | a == char = b
   | otherwise = lookUpRec char xs
 
 prop_lookUp :: Char -> [(Char, Char)] -> Bool
