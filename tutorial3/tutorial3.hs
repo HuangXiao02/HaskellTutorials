@@ -33,26 +33,27 @@ prop_uppers str = (uppers str) == (uppers' str)
 -- 2. Filter
 -- a.
 alphas :: String -> String
-alphas = undefined
+alphas str = filter isAlpha str
 
 -- b.
 rmChar ::  Char -> String -> String
-rmChar = undefined
+rmChar ch str = filter (/= ch) str
 
 -- c.
 above :: Int -> [Int] -> [Int]
-above = undefined
+above lt xs = filter (>= lt) xs
 
 -- d.
 unequals :: [(Int,Int)] -> [(Int,Int)]
-unequals = undefined
+unequals xs = filter equals xs
+  where equals (x,y) = x == y
 
 -- e.
 rmCharComp :: Char -> String -> String
-rmCharComp = undefined
+rmCharComp ch str = [ s | s <- str, s /= ch ]
 
 prop_rmChar :: Char -> String -> Bool
-prop_rmChar = undefined
+prop_rmChar ch str = (rmChar ch str) == (rmCharComp ch str)
 
 
 
