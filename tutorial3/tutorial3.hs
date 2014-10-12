@@ -1,4 +1,4 @@
--- Informatics 1 - Functional Programming 
+-- Informatics 1 - Functional Programming
 -- Tutorial 3
 --
 -- Week 5 - Due: 16/17 Oct.
@@ -17,7 +17,7 @@ uppers = undefined
 doubles :: [Int] -> [Int]
 doubles = undefined
 
--- c.        
+-- c.
 penceToPounds :: [Int] -> [Float]
 penceToPounds = undefined
 
@@ -75,7 +75,7 @@ largeDoubles' :: [Int] -> [Int]
 largeDoubles' = undefined
 
 prop_largeDoubles :: [Int] -> Bool
-prop_largeDoubles xs = largeDoubles xs == largeDoubles' xs 
+prop_largeDoubles xs = largeDoubles xs == largeDoubles' xs
 
 -- c.
 reverseEven :: [String] -> [String]
@@ -109,7 +109,7 @@ andFold :: [Bool] -> Bool
 andFold = undefined
 
 prop_and :: [Bool] -> Bool
-prop_and xs = andRec xs == andFold xs 
+prop_and xs = andRec xs == andFold xs
 
 -- c.
 concatRec :: [[a]] -> [a]
