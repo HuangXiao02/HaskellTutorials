@@ -63,7 +63,7 @@ upperChars :: String -> String
 upperChars s = [toUpper c | c <- s, isAlpha c]
 
 upperChars' :: String -> String
-upperChars' = undefined
+upperChars' s = map toUpper (filter isAlpha s)
 
 prop_upperChars :: String -> Bool
 prop_upperChars s = upperChars s == upperChars' s
@@ -73,7 +73,7 @@ largeDoubles :: [Int] -> [Int]
 largeDoubles xs = [2 * x | x <- xs, x > 3]
 
 largeDoubles' :: [Int] -> [Int]
-largeDoubles' = undefined
+largeDoubles' xs = map (2 *) (filter (>3) xs)
 
 prop_largeDoubles :: [Int] -> Bool
 prop_largeDoubles xs = largeDoubles xs == largeDoubles' xs
@@ -83,7 +83,8 @@ reverseEven :: [String] -> [String]
 reverseEven strs = [reverse s | s <- strs, even (length s)]
 
 reverseEven' :: [String] -> [String]
-reverseEven' = undefined
+reverseEven' strs = map reverse (filter even' strs)
+  where even' str = even (length str)
 
 prop_reverseEven :: [String] -> Bool
 prop_reverseEven strs = reverseEven strs == reverseEven' strs
