@@ -98,37 +98,48 @@ productRec []     = 1
 productRec (x:xs) = x * productRec xs
 
 productFold :: [Int] -> Int
-productFold = undefined
+productFold xs = foldr (*) 1 xs
 
 prop_product :: [Int] -> Bool
 prop_product xs = productRec xs == productFold xs
 
 -- b.
 andRec :: [Bool] -> Bool
-andRec = undefined
+andRec [] = True
+andRec (x:xs) = x && andRec xs
 
 andFold :: [Bool] -> Bool
-andFold = undefined
+andFold xs = foldr (&&) True xs
 
 prop_and :: [Bool] -> Bool
 prop_and xs = andRec xs == andFold xs
 
 -- c.
 concatRec :: [[a]] -> [a]
-concatRec = undefined
+concatRec [] = []
+concatRec (x:xs) = x ++ concatRec xs
 
 concatFold :: [[a]] -> [a]
-concatFold = undefined
+concatFold xs = foldr (++) [] xs
 
 prop_concat :: [String] -> Bool
 prop_concat strs = concatRec strs == concatFold strs
 
 -- d.
 rmCharsRec :: String -> String -> String
-rmCharsRec = undefined
+rmCharsRec xs [] = []
+rmCharsRec xs (y:ys)
+  | xs `has` y = rmCharsRec xs ys
+  | otherwise  = y : rmCharsRec xs ys
+  where
+    has :: String -> Char -> Bool
+    has [] ch = False
+    has (s:str) ch
+      | ch == s   = True || has str ch
+      | otherwise = has str ch
 
-rmCharsFold :: String -> String -> String
-rmCharsFold = undefined
+rmCharsFold :: [Char] -> String -> String
+rmCharsFold xs ys = foldr (rmChar) ys xs
 
 prop_rmChars :: String -> String -> Bool
 prop_rmChars chars str = rmCharsRec chars str == rmCharsFold chars str
