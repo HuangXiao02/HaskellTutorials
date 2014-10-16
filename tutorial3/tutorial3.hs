@@ -160,6 +160,14 @@ valid :: Matrix -> Bool
 valid xs = uniform (map length xs) && all (>0) (map length xs)
 
 -- 6.
+-- a.
+zipWith' :: (a -> b -> c) -> [a] -> [b] -> [c]
+zipWith' f xs ys = [ x `f` y | (x,y) <- zip xs ys ]
+
+-- b.
+zipWith'' :: (a -> b -> c) -> [a] -> [b] -> [c]
+zipWith'' f xs ys = map (uncurry f) (zip xs ys)
+
 
 -- 7.
 plusM :: Matrix -> Matrix -> Matrix
