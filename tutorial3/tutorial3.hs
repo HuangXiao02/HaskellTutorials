@@ -171,7 +171,14 @@ zipWith'' f xs ys = map (uncurry f) (zip xs ys)
 
 -- 7.
 plusM :: Matrix -> Matrix -> Matrix
-plusM = undefined
+plusM [] _ = []
+plusM _ [] = []
+plusM xs ys
+  | valid xs && valid ys = [ plusRow x y | (x,y) <- zip xs ys ]
+  | otherwise = error "Invalid matrices"
+  where
+    plusRow :: [Int] -> [Int] -> [Int]
+    plusRow as bs = zipWith (+) as bs
 
 -- 8.
 timesM :: Matrix -> Matrix -> Matrix
