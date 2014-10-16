@@ -152,11 +152,12 @@ type Matrix = [[Int]]
 -- 5
 -- a.
 uniform :: [Int] -> Bool
-uniform = undefined
+uniform [] = True
+uniform xs = all (== (head xs)) (tail xs)
 
 -- b.
 valid :: Matrix -> Bool
-valid = undefined
+valid xs = uniform (map length xs) && all (>0) (map length xs)
 
 -- 6.
 
