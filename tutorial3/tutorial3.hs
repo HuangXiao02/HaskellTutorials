@@ -159,6 +159,8 @@ type Matrix = [[Int]]
 uniform :: [Int] -> Bool
 uniform [] = True
 uniform xs = all (== (head xs)) (tail xs)
+-- all' (a -> Bool) -> [a] -> Bool
+-- all' f list = foldr (&&) True (map f list)
 
 -- b.
 valid :: Matrix -> Bool
