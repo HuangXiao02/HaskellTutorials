@@ -4,6 +4,7 @@
 -- Week 5 - Due: 16/17 Oct.
 
 import Data.Char
+import Data.List
 import Test.QuickCheck
 
 
@@ -180,12 +181,12 @@ zipWith'' f xs ys = map (uncurry f) (zip xs ys)
 plusM :: Matrix -> Matrix -> Matrix
 plusM [] _ = []
 plusM _ [] = []
-plusM xs ys
-  | valid xs && valid ys = [ plusRow x y | (x,y) <- zip xs ys ]
+plusM m n
+  | valid m && valid n && height m == height n && width m == width n = zipWith (zipWith (+)) m n
   | otherwise = error "Invalid matrices"
   where
-    plusRow :: [Int] -> [Int] -> [Int]
-    plusRow as bs = zipWith (+) as bs
+    height xs = length xs
+    width xs  = length (head xs)
 
 -- 8.
 timesM :: Matrix -> Matrix -> Matrix
