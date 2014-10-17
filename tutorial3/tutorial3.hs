@@ -20,6 +20,8 @@ doubles xs = map (* 2) xs
 -- c.
 penceToPounds :: (Num a, Fractional a) => [a] -> [a]
 penceToPounds xs = map (/100) xs
+-- penceToPounds :: [Int] -> [Float]
+-- penceToPounds xs = map ((/100).(fromIntegral)) xs
 
 -- d.
 uppers' :: String -> String
@@ -137,6 +139,9 @@ rmCharsRec xs (y:ys)
     has (s:str) ch
       | ch == s   = True || has str ch
       | otherwise = has str ch
+
+-- rmCharsRec [] ys = ys
+-- rmCharsRec (x:xs) ys = rmCharsRec xs (rmChar x ys)
 
 rmCharsFold :: [Char] -> String -> String
 rmCharsFold xs ys = foldr (rmChar) ys xs
