@@ -190,7 +190,14 @@ plusM m n
 
 -- 8.
 timesM :: Matrix -> Matrix -> Matrix
-timesM = undefined
+timesM m n = undefined
+  -- | valid m && valid n && width m == height n = [[dot m col | col <- (transpose n) ], [dot n row | row <- m]]
+  -- | otherwise = error "Invalid matrices"
+  -- where
+  --   height xs = length xs
+  --   width xs  = length (head xs)
+  --   dot :: [Int] -> [Int] -> Int
+  --   dot as bs = sum (foldr (*) as bs)
 
 -- Optional material
 -- 9.
