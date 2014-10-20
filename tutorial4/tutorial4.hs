@@ -68,12 +68,16 @@ emailsByNameFromURL url name =
 
 -- 1.
 sameString :: String -> String -> Bool
-sameString = undefined
+sameString str1 str2 = map toLower str1 == map toLower str2
 
 
 -- 2.
 prefix :: String -> String -> Bool
-prefix = undefined
+prefix [] _ = True
+prefix _ [] = False
+prefix (x:xs) (y:ys) 
+    | isAlpha x && isAlpha y = toLower x == toLower y && prefix xs ys
+    | otherwise = False
 
 prop_prefix :: String -> Int -> Bool
 prop_prefix str n  =  prefix substr (map toLower str) &&
@@ -150,3 +154,5 @@ emailsByNameFromHTML = undefined
 -- 12.
 ppAddrBook :: [(Name, Email)] -> String
 ppAddrBook addr = unlines [ name ++ ": " ++ email | (name,email) <- addr ]
+
+-- </exercises>
