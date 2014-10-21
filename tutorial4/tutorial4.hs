@@ -75,13 +75,13 @@ sameString str1 str2 = map toLower str1 == map toLower str2
 prefix :: String -> String -> Bool
 prefix [] _ = True
 prefix _ [] = False
-prefix (x:xs) (y:ys) 
+prefix (x:xs) (y:ys)
     | isAlpha x && isAlpha y = toLower x == toLower y && prefix xs ys
     | otherwise = False
 
 prop_prefix :: String -> Int -> Bool
 prop_prefix str n  =  prefix substr (map toLower str) &&
-		      prefix substr (map toUpper str)
+          prefix substr (map toUpper str)
                           where
                             substr  =  take n str
 
