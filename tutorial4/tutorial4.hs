@@ -79,17 +79,22 @@ prefix (x:xs) (y:ys) = toUpper x == toUpper y && prefix xs ys
 
 prop_prefix :: String -> Int -> Bool
 prop_prefix str n  =  prefix substr (map toLower str) &&
-          prefix substr (map toUpper str)
+                      prefix substr (map toUpper str)
                           where
                             substr  =  take n str
 
 
 -- 3.
 contains :: String -> String -> Bool
-contains = undefined
+contains _ [] = True
+contains [] _ = False
+contains str sub = prefix sub str || contains (tail str) sub
 
 prop_contains :: String -> Int -> Int -> Bool
-prop_contains = undefined
+prop_contains str x y = contains str (map toLower substr) &&
+                        contains str (map toUpper substr)
+                          where
+                            substr = take x (drop y str)
 
 
 -- 4.
