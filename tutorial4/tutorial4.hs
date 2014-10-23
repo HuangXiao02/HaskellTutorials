@@ -99,10 +99,18 @@ prop_contains str x y = contains str (map toLower substr) &&
 
 -- 4.
 takeUntil :: String -> String -> String
-takeUntil = undefined
+takeUntil _ [] = []
+takeUntil [] _ = []
+takeUntil sub str
+  | prefix sub str = []
+  | otherwise = head str : takeUntil sub (tail str)
 
 dropUntil :: String -> String -> String
-dropUntil = undefined
+dropUntil _ [] = []
+dropUntil [] _ = []
+dropUntil sub str
+  | prefix sub str = drop (length sub) str
+  | otherwise = dropUntil sub (tail str)
 
 
 -- 5.
