@@ -118,10 +118,16 @@ dropUntil sub str
 
 -- 5.
 split :: String -> String -> [String]
-split = undefined
+split _ [] = []
+split [] _ = error "Separator empty"
+split sep str
+  | contains str sep = takeUntil sep str : split sep (dropUntil sep str)
+  | otherwise = str : []
 
 reconstruct :: String -> [String] -> String
-reconstruct = undefined
+reconstruct _ [] = []
+reconstruct [] str = concat str
+reconstruct sep (s:str) = s ++ sep ++ reconstruct sep str
 
 prop_split :: Char -> String -> String -> Bool
 prop_split c sep str = reconstruct sep' (split sep' str) `sameString` str
