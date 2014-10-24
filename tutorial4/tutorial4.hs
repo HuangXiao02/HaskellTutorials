@@ -90,6 +90,9 @@ contains _ [] = True
 contains [] _ = False
 contains str sub = prefix sub str || contains (tail str) sub
 
+-- List comprehension version
+-- contains str sub = or [prefix sub (drop i str) | i <- [0..((length str)-1)]
+
 prop_contains :: String -> Int -> Int -> Bool
 prop_contains str x y = contains str (map toLower substr) &&
                         contains str (map toUpper substr)
