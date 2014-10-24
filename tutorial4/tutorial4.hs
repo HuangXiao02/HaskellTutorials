@@ -129,6 +129,9 @@ reconstruct _ [] = []
 reconstruct [] str = concat str
 reconstruct sep (s:str) = s ++ sep ++ reconstruct sep str
 
+-- Lisa's solution (works well, gg)
+-- reconstruct sep str = (foldr (++) "" (map (\x -> x ++ sep) (init str))) ++ (last str)
+
 prop_split :: Char -> String -> String -> Bool
 prop_split c sep str = reconstruct sep' (split sep' str) `sameString` str
   where sep' = c : sep
