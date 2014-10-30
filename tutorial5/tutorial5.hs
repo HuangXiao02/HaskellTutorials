@@ -43,7 +43,13 @@ isBloodOrange (Apple (_, _))              = False
 
 -- 2.
 bloodOrangeSegments :: [Fruit] -> Int
-bloodOrangeSegments = undefined
+bloodOrangeSegments fruit = sum (map numberOfSegments fruit)
+
+numberOfSegments :: Fruit -> Int
+numberOfSegments (Apple (_, _)) = 0
+numberOfSegments fruit@(Orange (k, x))
+  | isBloodOrange fruit = x
+  | otherwise           = 0
 
 -- 3.
 worms :: [Fruit] -> Int
