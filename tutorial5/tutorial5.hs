@@ -1,4 +1,4 @@
--- Informatics 1 - Functional Programming 
+-- Informatics 1 - Functional Programming
 -- Tutorial 5
 --
 -- Due: the tutorial of week 7 (30/31 October)
@@ -6,7 +6,7 @@
 
 import Control.Monad( liftM, liftM2 )
 import Data.List( nub )
-import Test.QuickCheck( quickCheck, 
+import Test.QuickCheck( quickCheck,
                         Arbitrary( arbitrary ),
                         oneof, elements, sized  )
 
@@ -81,7 +81,7 @@ eval e (Not p)        =  not (eval e p)
 eval e (p :|: q)      =  eval e p || eval e q
 eval e (p :&: q)      =  eval e p && eval e q
 
--- retrieves the names of variables from a proposition - 
+-- retrieves the names of variables from a proposition -
 --  NOTE: variable names in the result must be unique
 names :: Prop -> Names
 names (Var x)        =  [x]
@@ -106,11 +106,11 @@ satisfiable p  =  or [ eval e p | e <- envs (names p) ]
 
 -- 4.
 p1 = undefined
-p2 = undefined 
+p2 = undefined
 p3 = undefined
 
 
--- 5. 
+-- 5.
 tautology :: Prop -> Bool
 tautology = undefined
 
@@ -124,7 +124,7 @@ prop_taut2 = undefined
 -- 6.
 p4 = undefined
 p5 = undefined
-p6 = undefined 
+p6 = undefined
 
 
 -- 7.
