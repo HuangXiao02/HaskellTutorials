@@ -53,7 +53,7 @@ numberOfSegments fruit@(Orange (k, x))
 
 -- 3.
 worms :: [Fruit] -> Int
-worms = undefined
+worms apples = sum [ 1 | (Apple (_, True)) <- apples ]
 
 -- Implementing propositional logic in Haskell
 -- The datatype 'Prop'
