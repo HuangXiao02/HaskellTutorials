@@ -138,7 +138,7 @@ prop_split c sep str = reconstruct sep' (split sep' str) `sameString` str
 
 -- 6.
 linksFromHTML :: HTML -> [Link]
-linksFromHTML = undefined
+linksFromHTML html = split "<a href=\"" (dropUntil "</h2>" html)
 
 testLinksFromHTML :: Bool
 testLinksFromHTML  =  linksFromHTML testHTML == testLinks
