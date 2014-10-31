@@ -123,13 +123,13 @@ p3 = ((Var "P" :&: (Var "Q" :|: Var "R")) :&:
 
 -- 5.
 tautology :: Prop -> Bool
-tautology = undefined
+tautology p = and [ eval e p | e <- envs (names p) ]
 
 prop_taut1 :: Prop -> Bool
-prop_taut1 = undefined
+prop_taut1 p = tautology p || satisfiable (Not p)
 
 prop_taut2 :: Prop -> Bool
-prop_taut2 = undefined
+prop_taut2 p = not (satisfiable p) || not (tautology (Not p))
 
 
 -- 6.
