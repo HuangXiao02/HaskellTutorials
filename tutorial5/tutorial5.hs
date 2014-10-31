@@ -65,6 +65,8 @@ data Prop = Var Name
           | Not Prop
           | Prop :|: Prop
           | Prop :&: Prop
+          | Prop :->: Prop
+          | Prop :<->: Prop
           deriving (Eq, Ord)
 
 type Names = [Name]
@@ -75,31 +77,37 @@ type Env = [(Name, Bool)]
 
 -- turns a Prop into a string approximating mathematical notation
 showProp :: Prop -> String
-showProp (Var x)        =  x
-showProp (F)            =  "F"
-showProp (T)            =  "T"
-showProp (Not p)        =  "(~" ++ showProp p ++ ")"
-showProp (p :|: q)      =  "(" ++ showProp p ++ "|" ++ showProp q ++ ")"
-showProp (p :&: q)      =  "(" ++ showProp p ++ "&" ++ showProp q ++ ")"
+showProp (Var x)     = x
+showProp (F)         = "F"
+showProp (T)         = "T"
+showProp (Not p)     = "(~" ++ showProp p ++ ")"
+showProp (p :|: q)   = "(" ++ showProp p ++ "|" ++ showProp q ++ ")"
+showProp (p :&: q)   = "(" ++ showProp p ++ "&" ++ showProp q ++ ")"
+showProp (p :->: q)  = "(" ++ showProp p ++ "->" ++ showProp q ++ ")"
+showProp (p :<->: q) = "(" ++ showProp p ++ "<->" ++ showProp q ++ ")"
 
 -- evaluates a proposition in a given environment
 eval :: Env -> Prop -> Bool
-eval e (Var x)        =  lookUp x e
-eval e (F)            =  False
-eval e (T)            =  True
-eval e (Not p)        =  not (eval e p)
-eval e (p :|: q)      =  eval e p || eval e q
-eval e (p :&: q)      =  eval e p && eval e q
+eval e (Var x)     = lookUp x e
+eval e (F)         = False
+eval e (T)         = True
+eval e (Not p)     = not (eval e p)
+eval e (p :|: q)   = eval e p || eval e q
+eval e (p :&: q)   = eval e p && eval e q
+eval e (p :->: q)  = not (eval e p) || eval e q
+eval e (p :<->: q) = eval e (p :->: q) && eval e (q :->: p)
 
 -- retrieves the names of variables from a proposition -
 --  NOTE: variable names in the result must be unique
 names :: Prop -> Names
-names (Var x)        =  [x]
-names (F)            =  []
-names (T)            =  []
-names (Not p)        =  names p
-names (p :|: q)      =  nub (names p ++ names q)
-names (p :&: q)      =  nub (names p ++ names q)
+names (Var x)     = [x]
+names (F)         = []
+names (T)         = []
+names (Not p)     = names p
+names (p :|: q)   = nub (names p ++ names q)
+names (p :&: q)   = nub (names p ++ names q)
+names (p :->: q)  = nub (names p ++ names q)
+names (p :<->: q) = nub (names p ++ names q)
 
 -- creates all possible truth assignments for a set of variables
 envs :: Names -> [Env]
@@ -133,9 +141,9 @@ prop_taut2 p = not (satisfiable p) || not (tautology (Not p))
 
 
 -- 6.
-p4 = undefined
-p5 = undefined
-p6 = undefined
+p4 = ((Var "P" :->: Var "Q") :&: (Var "P" :<->: Var "Q"))
+p5 = ((Var "P" :->: Var "Q") :&: (Var "P" :&: Not (Var "Q")))
+p6 = ((Var "P" :<->: Var "Q") :&: ((Var "P" :&: Not (Var "Q")) :|: (Not (Var "P") :&: Var "Q")))
 
 
 -- 7.
@@ -224,8 +232,8 @@ instance Arbitrary Prop where
                                        , liftM Not subform
                                        , liftM2 (:|:) subform subform
                                        , liftM2 (:&:) subform subform
-                                     --  , liftM2 (:->:) subform subform
-                                     --  , liftM2 (:<->:) subform' subform'
+                                       , liftM2 (:->:) subform subform
+                                       , liftM2 (:<->:) subform' subform'
                                        ]
                  where
                    atom = oneof [liftM Var (elements ["P", "Q", "R", "S"]),
