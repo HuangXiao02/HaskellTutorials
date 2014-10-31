@@ -126,7 +126,7 @@ satisfiable p  =  or [ eval e p | e <- envs (names p) ]
 p1 = ((Var "P" :|: Var "Q") :&: (Var "P" :&: Var "Q"))
 p2 = ((Var "P" :|: Var "Q") :&: ((Not (Var "P")) :&: (Not (Var "Q"))))
 p3 = ((Var "P" :&: (Var "Q" :|: Var "R")) :&:
-       (((Not (Var "P")) :|: (Not (Var "Q"))) :&: ((Not (Var "P")) :|: (Not (Var "R")))))
+       ((Not (Var "P") :|: Not (Var "Q")) :&: (Not (Var "P") :|: Not (Var "R"))))
 
 
 -- 5.
