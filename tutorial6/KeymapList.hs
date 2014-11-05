@@ -1,5 +1,5 @@
 -- INF 1 Functional Programming
--- 
+--
 -- Indexed data represented as a list
 
 

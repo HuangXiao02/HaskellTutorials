@@ -1,5 +1,5 @@
 -- INF 1 Functional Programming
--- 
+--
 -- Indexed data represented as a tree
 
 
@@ -8,7 +8,7 @@ module KeymapTree ( Keymap,
                     get, set, del,
                     select,
                     toList, fromList,
-                    merge, filterLT, filterGT                  
+                    merge, filterLT, filterGT
                   )
 
 where
@@ -27,7 +27,7 @@ data Keymap k a = Leaf
 
 testTree :: Keymap Int Int
 testTree = Node 2 20 (Node 1 10 Leaf Leaf)
-                     (Node 3 30 Leaf 
+                     (Node 3 30 Leaf
                                (Node 4 40 Leaf Leaf ))
 
 -- Exercise 6
@@ -101,4 +101,4 @@ del = undefined
 -- Exercise 15
 
 select :: Ord k => (a -> Bool) -> Keymap k a -> Keymap k a
-select = undefined 
+select = undefined

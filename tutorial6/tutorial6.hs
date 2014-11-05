@@ -43,7 +43,7 @@ formatLine = undefined
 
 showCatalogue :: Catalogue -> String
 showCatalogue = undefined
-     
+
 -- Exercise 2
 maybeToList :: Maybe a -> [a]
 maybeToList = undefined
