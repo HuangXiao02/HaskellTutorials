@@ -151,7 +151,7 @@ equivalent :: Prop -> Prop -> Bool
 equivalent = undefined
 
 equivalent' :: Prop -> Prop -> Bool
-equivalent' = undefined
+equivalent' p q = tautology (p :<->: q)
 
 prop_equivalent :: Prop -> Prop -> Bool
 prop_equivalent = undefined
