@@ -71,7 +71,10 @@ catMaybes xs = map just (filter (/= Nothing) xs)
 -- Exercise 3
 
 getItems :: [Barcode] -> Catalogue -> [Item]
-getItems = undefined
+getItems xs ys = catMaybes (items xs ys)
+  where
+    items [] _ = []
+    items (x:xs) ys = (lookup x (toList ys)) : items xs ys
 
 
 
