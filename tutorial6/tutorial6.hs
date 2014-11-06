@@ -36,13 +36,23 @@ testDB = fromList [
 -- Exercise 1
 
 longestProductLen :: [(Barcode, Item)] -> Int
-longestProductLen = undefined
+longestProductLen xs = frank xs 0
+  where
+    frank [] l = l
+    frank ((code,(name, unit)):xs) longest
+      | length name > longest = frank xs (length name)
+      | otherwise = frank xs longest
 
 formatLine :: Int -> (Barcode, Item) -> String
-formatLine = undefined
+formatLine len (barcode, (name, unit)) = barcode ++ dots ++ (take (len + 3) (name ++ (replicate len '.'))) ++ unit
+  where
+    dots = "..."
 
 showCatalogue :: Catalogue -> String
-showCatalogue = undefined
+showCatalogue xs = printing (toList xs) (longestProductLen (toList xs))
+  where
+    printing [] _ = []
+    printing (x:xs) len = formatLine len x ++ "\n" ++ printing xs len
 
 -- Exercise 2
 maybeToList :: Maybe a -> [a]
