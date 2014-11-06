@@ -56,13 +56,17 @@ showCatalogue xs = printing (toList xs) (longestProductLen (toList xs))
 
 -- Exercise 2
 maybeToList :: Maybe a -> [a]
-maybeToList = undefined
+maybeToList Nothing = []
+maybeToList (Just a)  = [a]
 
 listToMaybe :: [a] -> Maybe a
-listToMaybe = undefined
+listToMaybe [] = Nothing
+listToMaybe xs = Just (head xs)
 
-catMaybes :: [Maybe a] -> [a]
-catMaybes = undefined
+catMaybes :: Eq a => [Maybe a] -> [a]
+catMaybes xs = map just (filter (/= Nothing) xs)
+  where
+    just (Just a) = a
 
 -- Exercise 3
 
