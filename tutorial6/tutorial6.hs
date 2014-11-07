@@ -65,6 +65,7 @@ listToMaybe [] = Nothing
 listToMaybe xs = Just (head xs)
 
 catMaybes :: Eq a => [Maybe a] -> [a]
+-- catMaybes xs = concat $ map maybeToList xs
 catMaybes xs = map just (filter (/= Nothing) xs)
   where
     just (Just a) = a
