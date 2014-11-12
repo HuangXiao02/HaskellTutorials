@@ -43,7 +43,8 @@ depth (Node _ _ left right) = 1 + (max (depth left) (depth right))
 -- Exercise 7
 
 toList :: Ord k => Keymap k a -> [(k,a)]
-toList = undefined
+toList Leaf = []
+toList (Node k a left right) = toList left ++ [(k,a)] ++ toList right
 
 -- Exercise 8
 
@@ -52,13 +53,18 @@ set key value = f
     where
       f Leaf = Node key value Leaf Leaf
       f (Node k v left right) | key == k  = Node k value left right
-                              | key <= k  = undefined
-                              | otherwise = undefined
+                              | key <= k  = Node k v (f left) right
+                              | otherwise = Node k v left (f right)
 
 -- Exercise 9
 
 get :: Ord k => k -> Keymap k a -> Maybe a
-get = undefined
+get key = f
+  where
+    f Leaf = Nothing
+    f (Node k v left right) | key == k = Just v
+                            | key <= k = f left
+                            | otherwise = f right
 
 prop_set_get :: Int -> Int -> Bool
 prop_set_get k v = get k (set k v testTree) == Just v
@@ -66,7 +72,8 @@ prop_set_get k v = get k (set k v testTree) == Just v
 -- Exercise 10
 
 fromList :: Ord k => [(k,a)] -> Keymap k a
-fromList = undefined
+fromList [] = Leaf
+fromList ((k,v):xs) = set k v (fromList xs)
 
 
 prop_toList_fromList :: [Int] -> [Int] -> Bool
