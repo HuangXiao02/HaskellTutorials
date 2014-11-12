@@ -1,4 +1,4 @@
--- Informatics 1 - Functional Programming 
+-- Informatics 1 - Functional Programming
 -- Tutorial 7
 --
 -- Week 9 - Due: 13/14 Nov.
