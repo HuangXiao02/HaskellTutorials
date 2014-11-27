@@ -1,4 +1,4 @@
--- Informatics 1 - Functional Programming 
+-- Informatics 1 - Functional Programming
 -- Tutorial 8
 --
 -- Week 11 - due: 28/29 Nov.
@@ -37,7 +37,7 @@ m2 = (['A','B','C','D'],
        ('C', '0', 'B'), ('C', '1', 'D'),
        ('D', '0', 'D'), ('D', '1', 'D')])
 
-dm1 :: FSM [Int] 
+dm1 :: FSM [Int]
 dm1 =  ([[],[0],[1,2],[3],[3,4],[4]],
         ['a','b'],
         [0],
