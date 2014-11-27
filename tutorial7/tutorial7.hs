@@ -40,28 +40,35 @@ prop_split cmd = all f (split cmd)
 -- Exercise 2
 -- 2a. copy
 copy :: Int -> Command -> Command
-copy = undefined
+copy n cmd = join (concat (replicate n (split cmd)))
 
 -- 2b. pentagon
 pentagon :: Distance -> Command
-pentagon = undefined
+pentagon len = copy 5 (Go len :#: Turn 72)
 
 -- 2c. polygon
 polygon :: Distance -> Int -> Command
-polygon = undefined
+polygon d n = copy n (Go d :#: Turn (360/fromIntegral n))
 
 
 
 -- Exercise 3
 -- spiral
 spiral :: Distance -> Int -> Distance -> Angle -> Command
-spiral = undefined
+spiral 0 n step angle = Sit
+spiral side 0 step angle = Sit
+spiral side n step angle = Go side :#: Turn angle :#: (spiral (side + step) (n-1) step angle)
 
 
 -- Exercise 4
 -- optimise
 optimise :: Command -> Command
-optimise = undefined
+optimise c = join (compress (filter (/= Turn 0) (compress (filter (/= Go 0) (split c)))))
+  where
+    compress [] = []
+    compress (Turn x:Turn y:xs) = compress (Turn (x+y):xs)
+    compress (Go x:Go y:xs) = compress (Go (x+y):xs)
+    compress (x:xs) = x : compress xs
 
 
 
