@@ -11,19 +11,30 @@ import Test.QuickCheck
 
 -- 1a. split
 split :: Command -> [Command]
-split = undefined
+split (com :#: coms) = split com ++ split coms
+split Sit = []
+split com = [com]
 
 -- 1b. join
 join :: [Command] -> Command
-join = undefined
+join [] = Sit
+join [x] = x
+join (x:xs) = x :#: join xs
 
 -- 1c  equivalent
-equivalent = undefined
+equivalent :: Command -> Command -> Bool
+equivalent com1 com2 = split com1 == split com2
 
 -- 1d. testing join and split
-prop_split_join = undefined
+prop_split_join :: Command -> Bool
+prop_split_join c = join (split c) `equivalent` c
 
-prop_split = undefined
+prop_split :: Command -> Bool
+prop_split cmd = all f (split cmd)
+  where
+    f Sit = False
+    f (_ :#: _) = False
+    f _ = True
 
 
 -- Exercise 2
