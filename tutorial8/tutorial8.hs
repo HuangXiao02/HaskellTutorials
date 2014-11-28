@@ -84,7 +84,12 @@ delta fsm st tr = deltaHelper (trans fsm) st tr
 
 -- 3.
 accepts :: (Eq q) => FSM q -> String -> Bool
-accepts = undefined
+accepts m xs = acceptsFrom m (start m) xs
+  where
+    acceptsFrom :: (Eq q) => FSM q -> q -> String -> Bool
+    acceptsFrom m q []     = q `elem` final m
+    acceptsFrom m q (x:xs) = any (\q' -> acceptsFrom m q' xs) (delta m q x)
+    -- acceptsFrom m q (x:xs) = or [acceptsFrom m q' xs | q' <- delta m q x ]
 
 
 -- 4.
