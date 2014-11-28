@@ -74,8 +74,13 @@ trans  (_, _, _, _, t) = t
 
 -- 2.
 delta :: (Eq q) => FSM q -> q -> Char -> [q]
-delta = undefined
-
+delta fsm st tr = deltaHelper (trans fsm) st tr
+  where
+    deltaHelper :: (Eq q) => [Transition q] -> q -> Char -> [q]
+    deltaHelper [] _ _ = []
+    deltaHelper ((s,l,f):xs) sta ch
+      | s == sta && l == ch  = f : deltaHelper xs sta ch
+      | otherwise            = deltaHelper xs sta ch
 
 -- 3.
 accepts :: (Eq q) => FSM q -> String -> Bool
