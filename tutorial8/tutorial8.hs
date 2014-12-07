@@ -94,36 +94,40 @@ accepts m xs = acceptsFrom m (start m) xs
 
 -- 4.
 canonical :: (Ord q) => [q] -> [q]
-canonical = undefined
+canonical = nub . sort
 
 
 -- 5.
 ddelta :: (Ord q) => FSM q -> [q] -> Char -> [q]
-ddelta = undefined
+ddelta m qs s = canonical $ concat (map (\q -> delta m q s) qs)
 
 
 -- 6.
 next :: (Ord q) => FSM q -> [[q]] -> [[q]]
-next = undefined
+next m qs = canonical $ [ ddelta m x y | x <- qs, y <- alph m ] ++ qs
 
 
 -- 7.
 reachable :: (Ord q) => FSM q -> [[q]] -> [[q]]
-reachable = undefined
+reachable m qs
+  | next m qs /= qs = reachable m (next m qs)
+  | otherwise = qs
 
 
 -- 8.
 dfinal :: (Ord q) => FSM q -> [[q]] -> [[q]]
-dfinal = undefined
+dfinal m qss = filter (\qs -> any (\f -> elem f qs) (final m)) qss
 
 
 -- 9.
 dtrans :: (Ord q) => FSM q -> [[q]] -> [Transition [q]]
-dtrans = undefined
+dtrans fsm states = [ (y,x, (ddelta fsm y x)) | y <- states, x <- alph fsm ]
 
 
 -- 10.
 deterministic :: (Ord q) => FSM q -> FSM [q]
-deterministic = undefined
+deterministic m = (states, alph m, [start m], dfinal m states, dtrans m states)
+  where
+    states = reachable m [[start m]]
 
 
