@@ -23,14 +23,14 @@ join (x:xs) = x :#: join xs
 
 -- 1c  equivalent
 equivalent :: Command -> Command -> Bool
-equivalent com1 com2 = split com1 == split com2
+equivalent xs ys = split xs == split ys
 
 -- 1d. testing join and split
 prop_split_join :: Command -> Bool
 prop_split_join c = join (split c) `equivalent` c
 
 prop_split :: Command -> Bool
-prop_split cmd = all f (split cmd)
+prop_split xs = all f (split xs)
   where
     f Sit = False
     f (_ :#: _) = False
@@ -40,7 +40,7 @@ prop_split cmd = all f (split cmd)
 -- Exercise 2
 -- 2a. copy
 copy :: Int -> Command -> Command
-copy n cmd = join (concat (replicate n (split cmd)))
+copy n xs = join (concat (replicate n (split xs)))
 
 -- 2b. pentagon
 pentagon :: Distance -> Command
@@ -55,20 +55,20 @@ polygon d n = copy n (Go d :#: Turn (360/fromIntegral n))
 -- Exercise 3
 -- spiral
 spiral :: Distance -> Int -> Distance -> Angle -> Command
-spiral 0 n step angle = Sit
-spiral side 0 step angle = Sit
-spiral side n step angle = Go side :#: Turn angle :#: (spiral (side + step) (n-1) step angle)
+spiral 0 n m d = Sit
+spiral s 0 m d = Sit
+spiral s n m d = Go side :#: Turn d :#: (spiral (s + m) (n-1) m d)
 
 
 -- Exercise 4
 -- optimise
 optimise :: Command -> Command
-optimise c = join (compress (filter (/= Turn 0) (compress (filter (/= Go 0) (split c)))))
+optimise c = join (xiao (filter (/= Turn 0) (xiao (filter (/= Go 0) (split c)))))
   where
-    compress [] = []
-    compress (Turn x:Turn y:xs) = compress (Turn (x+y):xs)
-    compress (Go x:Go y:xs) = compress (Go (x+y):xs)
-    compress (x:xs) = x : compress xs
+    xiao [] = []
+    xiao (Turn x:Turn y:xs) = xiao (Turn (x+y):xs)
+    xiao (Go x:Go y:xs) = xiao (Go (x+y):xs)
+    xiao (x:xs) = x : xiao xs
 
 
 
@@ -76,13 +76,28 @@ optimise c = join (compress (filter (/= Turn 0) (compress (filter (/= Go 0) (spl
 
 -- 5. arrowhead
 arrowhead :: Int -> Command
-arrowhead = undefined
+arrowhead x=f x
+    where 
+        f 0=GrabPen red :#: Go 10
+        f x=g (x-1):#:p:#:f(x-1):#:p:#:g(x-1)
+        g 0=GrabPen blue :#: Go 10
+        g x=f (x-1):#:n:#:g(x-1):#:n:#:f(x-1)
+        n=Turn 60
+        p=Turn (-60)
+
 
 -- 6. snowflake
 snowflake :: Int -> Command
-snowflake = undefined
+snowflake x= f x :#: n :#: n :#: f x :#: n :#: n :#: f x :#: n :#: n
+    where 
+        f 0=Go 10
+        f x=f(x-1):#: p :#: f(x-1) :#: n :#: n :#: f(x-1):#: p :#: f(x-1) 
+        n=Turn 60
+        p=Turn (-60)
+    
 
 -- 7. hilbert
 hilbert :: Int -> Command
 hilbert = undefined
+
 
